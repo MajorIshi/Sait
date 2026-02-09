@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TerraScan - Программа для 3D-картографирования местности дронами</title>
+    <style>
+        /* Основные переменные цветов */
+        :root {
+            --dark-blue: #22577a;
+            --teal: #38a3a5;
+            --green: #57cc99;
+            --light-green: #80ed99;
+            --pale-green: #c7f9cc;
+            --transition: all 0.3s ease;
+        }
+
+        /* Стандартные стили для всего сайта */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, var(--pale-green) 0%, var(--light-green) 100%);
+            overflow-x: hidden;
+            transition: var(--transition);
+        }
+
+        /* Стили для режима слабовидящих */
+        body.low-vision {
+            background: white !important;
+            color: black !important;
+            background-image: none !important;
+        }
+
+        body.low-vision header,
+        body.low-vision .hero,
+        body.low-vision .features,
+        body.low-vision .how-it-works,
+        body.low-vision .benefits,
+        body.low-vision .cta,
+        body.low-vision footer {
+            background: white !important;
+            color: black !important;
+            box-shadow: none !important;
+            border: 1px solid #ddd !important;
+        }
+
+        body.low-vision h1, 
+        body.low-vision h2, 
+        body.low-vision h3 {
+            color: black !important;
+        }
+
+        body.low-vision .feature-card,
+        body.low-vision .step-card,
+        body.low-vision .benefit-card {
+            background: #f8f8f8 !important;
+            border: 1px solid #ddd !important;
+        }
+
+        body.low-vision img {
+            filter: none !important;
+            opacity: 1 !important;
+        }
+
+        body.low-vision .nav-links a,
+        body.low-vision .cta-button,
+        body.low-vision .mode-toggle {
+            background: #f0f0f0 !important;
+            color: black !important;
+            border: 1px solid #999 !important;
+        }
+
+        /* Общие стили контейнера */
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        /* Стили шапки сайта */
+        header {
+            background: rgba(34, 87, 122, 0.95);
+            color: white;
+            padding: 15px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.2);
+            transition: var(--transition);
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--light-green);
+        }
+
+        .logo span {
+            color: var(--teal);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 30px;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 5px 10px;
+            border-radius: 4px;
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover, 
+        .nav-links a.active {
+            background: var(--teal);
+        }
+
+        /* Стили для иконки глаза (режим слабовидящих) */
+        .mode-toggle {
+            background: var(--teal);
+            color: white;
+            border: none;
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.4rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+            position: relative;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+            margin-left: 15px;
+        }
+
+        .mode-toggle:hover {
+            background: #2a7a7b;
+            transform: scale(1.1);
+        }
+
+        /* Зачеркивание для иконки глаза в режиме слабовидящих */
+        body.low-vision .mode-toggle::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 120%;
+            height: 3px;
+            background: #e74c3c; /* Ярко-красный для контраста */
+            transform: translate(-50%, -50%) rotate(45deg);
+            border-radius: 2px;
+            box-shadow: 0 0 3px rgba(0, 0, 0, 0.5);
+            z-index: 10;
+        }
+
+        /* Героевский раздел */
+        .hero {
+            background: linear-gradient(rgba(34, 87, 122, 0.85), rgba(56, 163, 165, 0.85)), url('https://images.unsplash.com/photo-1508768787706-0f8e8f7a3fec?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+            padding: 180px 20px 100px;
+            margin-top: 70px;
+            transition: var(--transition);
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            max-width: 800px;
+            margin: 0 auto 30px;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Кнопки призыва к действию */
+        .cta-button {
+            display: inline-block;
+            background: var(--green);
+            color: white;
+            padding: 15px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin: 10px;
+            transition: var(--transition);
+            border: 2px solid var(--green);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .cta-button:hover {
+            background: transparent;
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .cta-button.secondary {
+            background: transparent;
+            border-color: white;
+        }
+
+        .cta-button.secondary:hover {
+            background: white;
+            color: var(--dark-blue);
+        }
+
+        /* Секция "Как это работает" */
+        .section {
+            padding: 80px 0;
+            transition: var(--transition);
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-title h2 {
+            font-size: 2.8rem;
+            color: var(--dark-blue);
+            position: relative;
+            display: inline-block;
+            padding-bottom: 15px;
+        }
+
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 70px;
+            height: 4px;
+            background: var(--green);
+            border-radius: 2px;
+        }
+
+        .steps-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .step-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            width: 250px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: var(--transition);
+        }
+
+        .step-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+        }
+
+        .step-number {
+            width: 50px;
+            height: 50px;
+            background: var(--teal);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin: 0 auto 20px;
+        }
+
+        .step-card h3 {
+            margin-bottom: 15px;
+            color: var(--dark-blue);
+        }
+
+        /* Секция преимуществ */
+        .features {
+            background: white;
+        }
+
+        .features-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+        }
+
+        .feature-card {
+            background: var(--pale-green);
+            border-radius: 15px;
+            padding: 30px;
+            width: 300px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            transition: var(--transition);
+        }
+
+        .feature-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: var(--dark-blue);
+        }
+
+        .feature-card h3 {
+            margin-bottom: 15px;
+            color: var(--dark-blue);
+        }
+
+        /* Секция пользы программы */
+        .benefits {
+            background: linear-gradient(135deg, var(--teal) 0%, var(--dark-blue) 100%);
+            color: white;
+        }
+
+        .benefits .section-title h2 {
+            color: white;
+        }
+
+        .benefits-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+        }
+
+        .benefit-card {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
+            width: 300px;
+            text-align: center;
+            transition: var(--transition);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .benefit-card:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-5px);
+        }
+
+        .benefit-card h3 {
+            margin: 20px 0;
+            font-size: 1.8rem;
+        }
+
+        /* Секция примеров */
+        .examples {
+            background: var(--pale-green);
+        }
+
+        .examples-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .example-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            width: 350px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: var(--transition);
+        }
+
+        .example-card:hover {
+            transform: scale(1.03);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+        }
+
+        .example-img {
+            height: 200px;
+            width: 100%;
+            object-fit: cover;
+        }
+
+        .example-content {
+            padding: 25px;
+        }
+
+        .example-content h3 {
+            color: var(--dark-blue);
+            margin-bottom: 15px;
+        }
+
+        /* Футер */
+        footer {
+            background: var(--dark-blue);
+            color: white;
+            text-align: center;
+            padding: 30px 0;
+            margin-top: 20px;
+        }
+
+        .copyright {
+            margin-top: 15px;
+            opacity: 0.8;
+        }
+
+        /* Адаптивность */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.2rem;
+            }
+            
+            .section {
+                padding: 60px 0;
+            }
+            
+            .step-card, 
+            .feature-card, 
+            .benefit-card {
+                width: 100%;
+                max-width: 400px;
+            }
+            
+            .example-card {
+                width: 100%;
+                max-width: 450px;
+            }
+            
+            .mode-toggle {
+                width: 38px;
+                height: 38px;
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Шапка сайта с навигацией и иконкой режима слабовидящих -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">Terra<span>Scan</span></div>
+            <ul class="nav-links">
+                <li><a href="#how-it-works" class="active">Как это работает</a></li>
+                <li><a href="#features">Возможности</a></li>
+                <li><a href="#benefits">Преимущества</a></li>
+                <li><a href="#examples">Примеры</a></li>
+                <li><a href="#contact">Программа</a></li>
+            </ul>
+            <!-- Иконка глаза для переключения режима слабовидящих -->
+            <button class="mode-toggle" id="modeToggle" aria-label="Включить режим для слабовидящих">👁️</button>
+        </div>
+    </header>
+
+    <!-- Героевский раздел с основным описанием -->
+    <section class="hero">
+        <div class="container">
+            <h1>3D-картографирование местности с помощью дронов</h1>
+            <p>Профессиональная программа для создания точных цифровых моделей местности на основе данных лидара, GPS и фотографий</p>
+            <a href="#how-it-works" class="cta-button">Узнать больше</a>
+            <a href="#contact" class="cta-button secondary">Создать карту</a>
+        </div>
+    </section>
+
+    <!-- Секция "Как это работает" -->
+    <section class="section" id="how-it-works">
+        <div class="container">
+            <div class="section-title">
+                <h2>Как это работает</h2>
+            </div>
+            <p style="text-align: center; max-width: 800px; margin: 0 auto 40px; font-size: 1.1rem;">
+                Наша программа, написанная на Python, объединяет данные с лидара, GPS-трекера и фотоснимков, 
+                чтобы создать точную 3D-модель местности. Программа интегрируется со сторонними решениями 
+                для обработки данных и предоставляет готовые модели для анализа.
+            </p>
+            <div class="steps-container">
+                <div class="step-card">
+                    <div class="step-number">1</div>
+                    <h3>Сбор данных</h3>
+                    <p>Дрон оснащается лидаром, GPS-трекером и камерой для сбора данных о местности.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">2</div>
+                    <h3>Обработка данных</h3>
+                    <p>Программа обрабатывает полученные данные, объединяя информацию от всех датчиков.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">3</div>
+                    <h3>Создание модели</h3>
+                    <p>На основе обработанных данных строится точная 3D-модель местности.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">4</div>
+                    <h3>Анализ результатов</h3>
+                    <p>Готовая модель используется для анализа в строительстве или сельском хозяйстве.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Секция возможностей программы -->
+    <section class="section features" id="features">
+        <div class="container">
+            <div class="section-title">
+                <h2>Возможности программы</h2>
+            </div>
+            <div class="features-container">
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3>Точное картографирование</h3>
+                    <p>Создание детальных 3D-моделей местности с высокой точностью на основе данных лидара.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🌱</div>
+                    <h3>Анализ почвы</h3>
+                    <p>Отслеживание состояния почвы, выявление эрозии и плодородных участков.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🏗️</div>
+                    <h3>Строительный мониторинг</h3>
+                    <p>Контроль хода строительных работ и изменений рельефа на объекте.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Секция преимуществ -->
+    <section class="section benefits" id="benefits">
+        <div class="container">
+            <div class="section-title">
+                <h2>Преимущества TerraScan</h2>
+            </div>
+            <div class="benefits-container">
+                <div class="benefit-card">
+                    <h3>Экономия времени</h3>
+                    <p>Сокращает время на обследование участка в десятки раз по сравнению с традиционными методами.</p>
+                </div>
+                <div class="benefit-card">
+                    <h3>Высокая точность</h3>
+                    <p>Обеспечивает точность измерений до сантиметра благодаря комбинации лидара и фотограмметрии.</p>
+                </div>
+                <div class="benefit-card">
+                    <h3>Универсальность</h3>
+                    <p>Подходит как для строительных площадок, так и для сельскохозяйственных угодий.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Секция примеров применения -->
+    <section class="section examples" id="examples">
+        <div class="container">
+            <div class="section-title">
+                <h2>Примеры применения</h2>
+            </div>
+            <div class="examples-container">
+                <div class="example-card">
+                    <div class="example-content">
+                        <h3>Строительный мониторинг</h3>
+                        <p>Отслеживание изменений рельефа на строительной площадке и контроль объемов земляных работ.</p>
+                    </div>
+                </div>
+                <div class="example-card">
+                    <div class="example-content">
+                        <h3>Сельское хозяйство</h3>
+                        <p>Анализ состояния почвы, планирование посевных площадей и мониторинг урожайности.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Секция перехода к программе -->
+    <section class="section cta" id="contact">
+        <div class="container" style="text-align: center;">
+            <h2 style="font-size: 2.5rem; margin-bottom: 20px;">Готовы начать?</h2>
+            <p style="font-size: 1.2rem; max-width: 700px; margin: 0 auto 30px;">
+                Попробуйте создать карту с TerraScan
+            </p>
+            <a class="cta-button" style="background: var(--dark-blue); border-color: var(--dark-blue);">Начать</a>
+        </div>
+    </section>
+
+    <!-- Футер сайта -->
+    <footer>
+        <div class="container">
+            <div class="logo" style="font-size: 1.5rem; margin-bottom: 15px;">Terra<span>Scan</span></div>
+            <p>Программа для 3D-картографирования местности с помощью дронов</p>
+            <div class="copyright">
+                <p>&copy; 2026 TerraScan. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // JavaScript для переключения режима слабовидящих
+        document.addEventListener('DOMContentLoaded', function() {
+            const modeToggle = document.getElementById('modeToggle');
+            const body = document.body;
+            
+            // Проверяем, был ли ранее включен режим слабовидящих
+            if (localStorage.getItem('lowVisionMode') === 'enabled') {
+                body.classList.add('low-vision');
+                modeToggle.setAttribute('aria-label', 'Выключить режим для слабовидящих');
+            } else {
+                modeToggle.setAttribute('aria-label', 'Включить режим для слабовидящих');
+            }
+            
+            // Обработчик нажатия на иконку глаза
+            modeToggle.addEventListener('click', function() {
+                body.classList.toggle('low-vision');
+                
+                // Сохраняем состояние в localStorage для запоминания выбора пользователя
+                if (body.classList.contains('low-vision')) {
+                    localStorage.setItem('lowVisionMode', 'enabled');
+                    modeToggle.setAttribute('aria-label', 'Выключить режим для слабовидящих');
+                } else {
+                    localStorage.setItem('lowVisionMode', 'disabled');
+                    modeToggle.setAttribute('aria-label', 'Включить режим для слабовидящих');
+                }
+            });
+            
+            // Плавная прокрутка для якорных ссылок
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+                    
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+            
+            // Активация пунктов меню при прокрутке
+            const sections = document.querySelectorAll('.section');
+            const navLinks = document.querySelectorAll('.nav-links a');
+            
+            window.addEventListener('scroll', () => {
+                let current = '';
+                
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop - 150;
+                    if (pageYOffset >= sectionTop) {
+                        current = section.getAttribute('id');
+                    }
+                });
+                
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href').slice(1) === current) {
+                        link.classList.add('active');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
