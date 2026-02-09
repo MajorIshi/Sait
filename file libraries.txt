@@ -1,0 +1,9 @@
+numpy
+opencv-python
+laspy
+lazrs
+pyvista
+flask
+werkzeug
+scipy
+scikit-image
