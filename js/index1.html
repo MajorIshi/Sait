@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TerraScan - Программа для 3D-картографирования местности дронами</title>
+    <link rel="stylesheet" href="style1.css">
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <!-- ЛЕВАЯ ЧАСТЬ: Логотип + Гамбургер -->
+            <div class="header-left">
+
+
+                <!-- Гамбургер меню (всегда видим) -->
+                <button class="hamburger" id="hamburger" aria-label="Открыть меню">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                <a href="index1.html" class="logo">Terra<span>Scan</span></a>
+            </div>
+
+            <!-- Центральная навигация (якорные ссылки) -->
+            <ul class="nav-links">
+                <li><a href="#how-it-works" class="active">Как это работает</a></li>
+                <li><a href="#features">Возможности</a></li>
+                <li><a href="#benefits">Преимущества</a></li>
+                <li><a href="#examples">Примеры</a></li>
+            </ul>
+
+            <!-- Правая часть: глазик -->
+            <div class="header-right">
+                <button class="mode-toggle" id="modeToggle" aria-label="Включить режим для слабовидящих">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Выпадающее меню гамбургера - СПЕВА -->
+    <div class="hamburger-menu" id="hamburgerMenu">
+        <ul>
+            <li><a href="index1.html">Главная</a></li>
+            <li><a href="help.html">Помощь</a></li>
+            <li><a href="index.html">Программа</a></li>
+        </ul>
+    </div>
+
+    <section class="hero">
+        <div class="container">
+            <h1>3D-картографирование местности с помощью дронов</h1>
+            <p>Профессиональная программа для создания точных цифровых моделей местности на основе данных лидара, GPS и фотографий</p>
+            <a href="#how-it-works" class="cta-button">Узнать больше</a>
+            <a href="index.html" class="cta-button secondary">Создать карту</a>
+        </div>
+    </section>
+
+    <section class="section" id="how-it-works">
+        <div class="container">
+            <div class="section-title">
+                <h2>Как это работает</h2>
+            </div>
+            <p style="text-align: center; max-width: 800px; margin: 0 auto 40px; font-size: 1.1rem;">
+                Наша программа, написанная на Python, объединяет данные с лидара, GPS-трекера и фотоснимков,
+                чтобы создать точную 3D-модель местности. Программа интегрируется со сторонними решениями
+                для обработки данных и предоставляет готовые модели для анализа.
+            </p>
+            <div class="steps-container">
+                <div class="step-card">
+                    <div class="step-number">1</div>
+                    <h3>Сбор данных</h3>
+                    <p>Дрон оснащается лидаром, GPS-трекером и камерой для сбора данных о местности.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">2</div>
+                    <h3>Обработка данных</h3>
+                    <p>Программа обрабатывает полученные данные, объединяя информацию от всех датчиков.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">3</div>
+                    <h3>Создание модели</h3>
+                    <p>На основе обработанных данных строится точная 3D-модель местности.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">4</div>
+                    <h3>Анализ результатов</h3>
+                    <p>Готовая модель используется для анализа в строительстве или сельском хозяйстве.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section features" id="features">
+        <div class="container">
+            <div class="section-title">
+                <h2>Возможности программы</h2>
+            </div>
+            <div class="features-container">
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3>Точное картографирование</h3>
+                    <p>Создание детальных 3D-моделей местности с высокой точностью на основе данных лидара.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🌱</div>
+                    <h3>Анализ почвы</h3>
+                    <p>Отслеживание состояния почвы, выявление эрозии и плодородных участков.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🏗️</div>
+                    <h3>Строительный мониторинг</h3>
+                    <p>Контроль хода строительных работ и изменений рельефа на объекте.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section benefits" id="benefits">
+        <div class="container">
+            <div class="section-title">
+                <h2>Преимущества TerraScan</h2>
+            </div>
+            <div class="benefits-container">
+                <div class="benefit-card">
+                    <h3>Экономия времени</h3>
+                    <p>Сокращает время на обследование участка в десятки раз по сравнению с традиционными методами.</p>
+                </div>
+                <div class="benefit-card">
+                    <h3>Высокая точность</h3>
+                    <p>Обеспечивает точность измерений до сантиметра благодаря комбинации лидара и фотограмметрии.</p>
+                </div>
+                <div class="benefit-card">
+                    <h3>Универсальность</h3>
+                    <p>Подходит как для строительных площадок, так и для сельскохозяйственных угодий.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section examples" id="examples">
+        <div class="container">
+            <div class="section-title">
+                <h2>Примеры применения</h2>
+            </div>
+            <div class="examples-container">
+                <div class="example-card">
+                    <div class="example-content">
+                        <h3>Строительный мониторинг</h3>
+                        <p>Отслеживание изменений рельефа на строительной площадке и контроль объемов земляных работ.</p>
+                    </div>
+                </div>
+                <div class="example-card">
+                    <div class="example-content">
+                        <h3>Сельское хозяйство</h3>
+                        <p>Анализ состояния почвы, планирование посевных площадей и мониторинг урожайности.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section cta" id="contact">
+        <div class="container" style="text-align: center;">
+            <h2 style="font-size: 2.5rem; margin-bottom: 20px;">Готовы начать?</h2>
+            <p style="font-size: 1.2rem; max-width: 700px; margin: 0 auto 30px;">
+                Попробуйте создать карту с TerraScan
+            </p>
+            <a class="cta-button" style="background: var(--dark-blue); border-color: var(--dark-blue);" href="index.html">Начать</a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="logo" style="font-size: 1.5rem; margin-bottom: 15px;">Terra<span>Scan</span></div>
+            <p>Программа для 3D-картографирования местности с помощью дронов</p>
+            <div class="copyright">
+                <p>&copy; 2026 TerraScan. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Гамбургер меню
+            const hamburger = document.getElementById('hamburger');
+            const hamburgerMenu = document.getElementById('hamburgerMenu');
+            const hamburgerLinks = hamburgerMenu.querySelectorAll('a');
+
+            hamburger.addEventListener('click', function(e) {
+                e.stopPropagation();
+                hamburger.classList.toggle('active');
+                hamburgerMenu.classList.toggle('active');
+            });
+
+            // Закрытие меню при клике на ссылку
+            hamburgerLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    hamburger.classList.remove('active');
+                    hamburgerMenu.classList.remove('active');
+                });
+            });
+
+            // Закрытие меню при клике вне его
+            document.addEventListener('click', function(e) {
+                if (!hamburger.contains(e.target) && !hamburgerMenu.contains(e.target)) {
+                    hamburger.classList.remove('active');
+                    hamburgerMenu.classList.remove('active');
+                }
+            });
+
+            // Режим слабовидящих
+            const modeToggle = document.getElementById('modeToggle');
+            const body = document.body;
+
+            if (localStorage.getItem('lowVisionMode') === 'enabled') {
+                body.classList.add('low-vision');
+                modeToggle.setAttribute('aria-label', 'Выключить режим для слабовидящих');
+            } else {
+                modeToggle.setAttribute('aria-label', 'Включить режим для слабовидящих');
+            }
+
+            modeToggle.addEventListener('click', function() {
+                body.classList.toggle('low-vision');
+
+                if (body.classList.contains('low-vision')) {
+                    localStorage.setItem('lowVisionMode', 'enabled');
+                    modeToggle.setAttribute('aria-label', 'Выключить режим для слабовидящих');
+                } else {
+                    localStorage.setItem('lowVisionMode', 'disabled');
+                    modeToggle.setAttribute('aria-label', 'Включить режим для слабовидящих');
+                }
+            });
+
+            // Плавная прокрутка
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    const href = this.getAttribute('href');
+                    if (href === '#') return;
+
+                    // Если это якорная ссылка на текущей странице
+                    if (href.startsWith('#') && href.length > 1) {
+                        e.preventDefault();
+                        const targetElement = document.querySelector(href);
+                        if (targetElement) {
+                            window.scrollTo({
+                                top: targetElement.offsetTop - 80,
+                                behavior: 'smooth'
+                            });
+                        }
+                    }
+                });
+            });
+
+            // Активация пунктов меню при прокрутке
+            const sections = document.querySelectorAll('.section');
+            const navLinks = document.querySelectorAll('.nav-links a');
+
+            window.addEventListener('scroll', () => {
+                let current = '';
+
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop - 150;
+                    if (pageYOffset >= sectionTop) {
+                        current = section.getAttribute('id');
+                    }
+                });
+
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href').slice(1) === current) {
+                        link.classList.add('active');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

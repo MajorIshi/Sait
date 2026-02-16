@@ -1,0 +1,561 @@
+﻿:root {
+    --dark-blue: #22577a;
+    --teal: #38a3a5;
+    --green: #57cc99;
+    --light-green: #80ed99;
+    --pale-green: #c7f9cc;
+    --transition: all 0.3s ease;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background: linear-gradient(135deg, var(--pale-green) 0%, var(--light-green) 100%);
+    overflow-x: hidden;
+    transition: var(--transition);
+}
+
+    body.low-vision {
+        background: white !important;
+        color: black !important;
+        background-image: none !important;
+    }
+
+        body.low-vision header,
+        body.low-vision .hero,
+        body.low-vision .features,
+        body.low-vision .how-it-works,
+        body.low-vision .benefits,
+        body.low-vision .cta,
+        body.low-vision footer {
+            background: white !important;
+            color: black !important;
+            box-shadow: none !important;
+            border: 1px solid #ddd !important;
+        }
+
+        body.low-vision h1,
+        body.low-vision h2,
+        body.low-vision h3 {
+            color: black !important;
+        }
+
+        body.low-vision .feature-card,
+        body.low-vision .step-card,
+        body.low-vision .benefit-card {
+            background: #f8f8f8 !important;
+            border: 1px solid #ddd !important;
+        }
+
+        body.low-vision img {
+            filter: none !important;
+            opacity: 1 !important;
+        }
+
+        body.low-vision .nav-links a,
+        body.low-vision .cta-button,
+        body.low-vision .mode-toggle {
+            background: #f0f0f0 !important;
+            color: black !important;
+            border: 1px solid #999 !important;
+        }
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+/* === ШАПКА - РАСТЯНУТА НА ВЕСЬ ЭКРАН === */
+header {
+    background: rgba(34, 87, 122, 0.95);
+    color: white;
+    padding: 15px 0;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.2);
+    transition: var(--transition);
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 2000px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* ЛЕВАЯ ЧАСТЬ: Логотип + Гамбургер */
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    
+
+
+    .logo {
+        font-size: 1.8rem;
+        font-weight: bold;
+        color: var(--light-green);
+        white-space: nowrap;
+        text-decoration: none;
+    }
+
+        .logo span {
+            color: var(--teal);
+        }
+}
+/* Центральная навигация */
+.nav-links {
+    display: flex;
+    list-style: none;
+    position: absolute;
+    left: 40%;
+    transform: translateX(-50%);
+}
+
+    .nav-links li {
+        margin: 0 15px;
+    }
+
+    .nav-links a {
+        color: white;
+        text-decoration: none;
+        font-weight: 500;
+        padding: 5px 10px;
+        border-radius: 4px;
+        transition: var(--transition);
+    }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            background: var(--teal);
+        }
+
+/* Правая часть - глазик */
+.header-right {
+    display: flex;
+    align-items: center;
+}
+
+.mode-toggle {
+    background: var(--teal);
+    color: white;
+    border: none;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1.4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition);
+    position: relative;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+    .mode-toggle:hover {
+        background: #2a7a7b;
+        transform: scale(1.1);
+    }
+
+    .mode-toggle svg {
+        width: 22px;
+        height: 22px;
+        fill: white;
+    }
+
+body.low-vision .mode-toggle::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 120%;
+    height: 3px;
+    background: #e74c3c;
+    transform: translate(-50%, -50%) rotate(45deg);
+    border-radius: 2px;
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.5);
+    z-index: 10;
+}
+
+/* === ГАМБУРГЕР - ВСЕГДА ВИДИМ === */
+.hamburger {
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    z-index: 1001;
+    padding: 5px;
+    background: none;
+    border: none;
+}
+
+    .hamburger span {
+        width: 25px;
+        height: 3px;
+        background-color: #ffffff;
+        margin: 3px 0;
+        transition: var(--transition);
+        border-radius: 3px;
+    }
+
+    .hamburger.active span:nth-child(1) {
+        transform: rotate(45deg) translate(5px, 5px);
+    }
+
+    .hamburger.active span:nth-child(2) {
+        opacity: 0;
+    }
+
+    .hamburger.active span:nth-child(3) {
+        transform: rotate(-45deg) translate(7px, -6px);
+    }
+
+/* Выпадающее меню гамбургера - СПЕВА */
+.hamburger-menu {
+    position: fixed;
+    top: 70px;
+    left: -250px;
+    width: 250px;
+    height: calc(100vh - 70px);
+    background: rgba(34, 87, 122, 0.98);
+    transition: left 0.3s ease;
+    z-index: 999;
+    padding: 20px;
+    box-shadow: 5px 0 15px rgba(0,0,0,0.3);
+}
+
+    .hamburger-menu.active {
+        left: 0;
+    }
+
+    .hamburger-menu ul {
+        list-style: none;
+    }
+
+    .hamburger-menu li {
+        margin-bottom: 15px;
+    }
+
+    .hamburger-menu a {
+        color: white;
+        text-decoration: none;
+        font-size: 1.2rem;
+        font-weight: 500;
+        padding: 10px 15px;
+        display: block;
+        border-radius: 5px;
+        transition: var(--transition);
+    }
+
+        .hamburger-menu a:hover {
+            background: var(--teal);
+        }
+
+.hero {
+    background: linear-gradient(rgba(34, 87, 122, 0.85), rgba(56, 163, 165, 0.85)), url('https://images.unsplash.com/photo-1508768787706-0f8e8f7a3fec?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80');
+    background-size: cover;
+    background-position: center;
+    color: white;
+    text-align: center;
+    padding: 180px 20px 100px;
+    margin-top: 70px;
+    transition: var(--transition);
+}
+
+    .hero h1 {
+        font-size: 3.5rem;
+        margin-bottom: 20px;
+        text-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    }
+
+    .hero p {
+        font-size: 1.5rem;
+        max-width: 800px;
+        margin: 0 auto 30px;
+        text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+    }
+
+.cta-button {
+    display: inline-block;
+    background: var(--green);
+    color: white;
+    padding: 15px 40px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.2rem;
+    margin: 10px;
+    transition: var(--transition);
+    border: 2px solid var(--green);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+    .cta-button:hover {
+        background: transparent;
+        color: white;
+        transform: translateY(-3px);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .cta-button.secondary {
+        background: transparent;
+        border-color: white;
+    }
+
+        .cta-button.secondary:hover {
+            background: white;
+            color: var(--dark-blue);
+        }
+
+.section {
+    padding: 80px 0;
+    transition: var(--transition);
+}
+
+.section-title {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+    .section-title h2 {
+        font-size: 2.8rem;
+        color: var(--dark-blue);
+        position: relative;
+        display: inline-block;
+        padding-bottom: 15px;
+    }
+
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 70px;
+            height: 4px;
+            background: var(--green);
+            border-radius: 2px;
+        }
+
+.steps-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+    margin-top: 40px;
+}
+
+.step-card {
+    background: white;
+    border-radius: 15px;
+    padding: 30px;
+    width: 250px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: var(--transition);
+}
+
+    .step-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+    }
+
+.step-number {
+    width: 50px;
+    height: 50px;
+    background: var(--teal);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin: 0 auto 20px;
+}
+
+.step-card h3 {
+    margin-bottom: 15px;
+    color: var(--dark-blue);
+}
+
+.features {
+    background: white;
+}
+
+.features-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+}
+
+.feature-card {
+    background: var(--pale-green);
+    border-radius: 15px;
+    padding: 30px;
+    width: 300px;
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+    transition: var(--transition);
+}
+
+    .feature-card:hover {
+        transform: scale(1.05);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    }
+
+.feature-icon {
+    font-size: 3rem;
+    margin-bottom: 20px;
+    color: var(--dark-blue);
+}
+
+.feature-card h3 {
+    margin-bottom: 15px;
+    color: var(--dark-blue);
+}
+
+.benefits {
+    background: linear-gradient(135deg, var(--teal) 0%, var(--dark-blue) 100%);
+    color: white;
+}
+
+    .benefits .section-title h2 {
+        color: white;
+    }
+
+.benefits-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+}
+
+.benefit-card {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    padding: 30px;
+    width: 300px;
+    text-align: center;
+    transition: var(--transition);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+    .benefit-card:hover {
+        background: rgba(255, 255, 255, 0.25);
+        transform: translateY(-5px);
+    }
+
+    .benefit-card h3 {
+        margin: 20px 0;
+        font-size: 1.8rem;
+    }
+
+.examples {
+    background: var(--pale-green);
+}
+
+.examples-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+    margin-top: 40px;
+}
+
+.example-card {
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    width: 350px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    transition: var(--transition);
+}
+
+    .example-card:hover {
+        transform: scale(1.03);
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+    }
+
+.example-img {
+    height: 200px;
+    width: 100%;
+    object-fit: cover;
+}
+
+.example-content {
+    padding: 25px;
+}
+
+    .example-content h3 {
+        color: var(--dark-blue);
+        margin-bottom: 15px;
+    }
+
+footer {
+    background: var(--dark-blue);
+    color: white;
+    text-align: center;
+    padding: 30px 0;
+    margin-top: 20px;
+}
+
+.copyright {
+    margin-top: 15px;
+    opacity: 0.8;
+}
+
+/* === АДАПТИВНОСТЬ === */
+@media (max-width: 968px) {
+    .nav-links {
+        display: none;
+    }
+}
+
+@media (max-width: 768px) {
+    .hero h1 {
+        font-size: 2.5rem;
+    }
+
+    .hero p {
+        font-size: 1.2rem;
+    }
+
+    .section {
+        padding: 60px 0;
+    }
+
+    .step-card,
+    .feature-card,
+    .benefit-card {
+        width: 100%;
+        max-width: 400px;
+    }
+
+    .example-card {
+        width: 100%;
+        max-width: 450px;
+    }
+
+    .mode-toggle {
+        width: 38px;
+        height: 38px;
+        font-size: 1.2rem;
+    }
+}

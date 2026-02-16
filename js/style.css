@@ -1,0 +1,276 @@
+﻿:root {
+    --primary-color: #2ecc71;
+    --primary-hover: #27ae60;
+    --dark-bg: #2c3e50;
+    --light-bg: #f9f9f9;
+    --text-color: #333;
+    --white: #ffffff;
+        --dark-blue: #22577a;
+        --teal: #38a3a5;
+        --green: #57cc99;
+        --light-green: #80ed99;
+        --pale-green: #c7f9cc;
+        --transition: all 0.3s ease;
+    }
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        margin: 0;
+        padding: 0;
+        color: var(--text-color);
+        line-height: 1.6;
+        background-color: var(--white);
+    }
+
+    .navbar {
+        background-color: var(--dark-bg);
+        color: var(--white);
+        padding: 1rem;
+        display: flex;
+        align-items: center;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+    }
+
+    .menu-toggle {
+        font-size: 1.5rem;
+        cursor: pointer;
+        margin-right: 15px;
+        background: none;
+        border: none;
+        color: var(--white);
+    }
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    .app-interface {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+        margin-top: 20px;
+    }
+
+    .panel {
+        background: var(--light-bg);
+        padding: 20px;
+        border-radius: 10px;
+        border: 1px solid #ddd;
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+    .btn {
+        background-color: var(--primary-color);
+        color: var(--white);
+        padding: 12px 30px;
+        text-decoration: none;
+        border-radius: 5px;
+        font-weight: bold;
+        border: none;
+        cursor: pointer;
+        width: 100%;
+    }
+
+        .btn:hover {
+            background-color: var(--primary-hover);
+        }
+
+    .result-box {
+        background: #fff;
+        border: 2px dashed #ccc;
+        height: 300px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #777;
+        margin-bottom: 10px;
+        border-radius: 5px;
+    }
+
+    footer {
+        background-color: var(--dark-bg);
+        color: var(--white);
+        text-align: center;
+        padding: 20px;
+        margin-top: 40px;
+    }
+
+    @media (max-width: 768px) {
+        .app-interface {
+            grid-template-columns: 1fr;
+        }
+    }
+/* === ГАМБУРГЕР (анимация) === */
+.hamburger {
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    padding: 5px;
+    background: none;
+    border: none;
+    z-index: 1001;
+}
+
+    .hamburger span {
+        width: 25px;
+        height: 3px;
+        background-color: #ffffff;
+        margin: 3px 0;
+        transition: all 0.3s ease;
+        border-radius: 3px;
+    }
+
+    .hamburger.active span:nth-child(1) {
+        transform: rotate(45deg) translate(5px, 5px);
+    }
+
+    .hamburger.active span:nth-child(2) {
+        opacity: 0;
+    }
+
+    .hamburger.active span:nth-child(3) {
+        transform: rotate(-45deg) translate(7px, -6px);
+    }
+
+/* === МЕНЮ ГАМБУРГЕРА (выпадает СВЕРХУ) === */
+/* === МЕНЮ ГАМБУРГЕРА (выезжает СЛЕВА) === */
+.hamburger-menu {
+    position: fixed;
+    top: 0;
+    left: -300px;           /* ← Скрыто слева за экраном */
+    width: 300px;           /* ← Ширина панели */
+    height: 100vh;          /* ← На всю высоту экрана */
+    background: rgba(34, 87, 122, 0.98);
+    transition: left 0.3s ease;  /* ← Плавная анимация */
+    z-index: 999;
+    padding-top: 80px;
+    box-shadow: 5px 0 15px rgba(0,0,0,0.3);
+}
+
+.hamburger-menu.active {
+    left: 0;                /* ← Выезжает на экран */
+}
+
+.hamburger-menu ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+}
+
+.hamburger-menu li {
+    margin: 15px 0;
+}
+
+.hamburger-menu a {
+    color: white;
+    text-decoration: none;
+    font-size: 1.2rem;
+    padding: 15px 20px;
+    display: block;
+    border-radius: 5px;
+    transition: background 0.3s ease;
+}
+
+.hamburger-menu a:hover {
+    background: var(--teal);
+}
+
+/* === ШАПКА === */
+header {
+    background: rgba(34, 87, 122, 0.95);
+    color: white;
+    padding: 15px 0;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.2);
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 2000px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+}
+
+/* === ЛОГОТИП === */
+.logo {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: var(--light-green);
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+    .logo span {
+        color: var(--teal);
+    }
+
+/* === НАВИГАЦИЯ ПО ЦЕНТРУ === */
+.nav-links {
+    display: flex;
+    list-style: none;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+    .nav-links li {
+        margin: 0 15px;
+    }
+
+    .nav-links a {
+        color: white;
+        text-decoration: none;
+        font-weight: 500;
+        padding: 5px 10px;
+        border-radius: 4px;
+        transition: var(--transition);
+    }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            background: var(--teal);
+        }
+
+/* === СКРЫТЬ НАВИГАЦИЮ НА МОБИЛЬНЫХ === */
+@media (max-width: 968px) {
+    .nav-links {
+        display: none;
+    }
+}
